@@ -1,0 +1,66 @@
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+  
+    <!-- =======================================================
+    * Template Name: iPortfolio
+    * Updated: Jul 27 2023 with Bootstrap v5.3.1
+    * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+    <title>{% block title %}Log in!{% endblock %}
+    </title>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+
+    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+</head>
+
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form>
+{% endblock %}
