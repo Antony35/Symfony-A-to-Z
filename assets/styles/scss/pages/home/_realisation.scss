@@ -1,0 +1,21 @@
+.paint {
+    margin: 50px;
+    width: 80vw;
+    align-self: center;
+    >:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+    &__container {
+        gap: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__description {
+            width: 50%;
+            .date {
+                padding-right: 50px;
+                text-align: right;
+            }
+        }
+    }
+}
