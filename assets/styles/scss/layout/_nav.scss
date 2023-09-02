@@ -1,0 +1,20 @@
+nav {
+    div {
+        ul {
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            li {
+                display: flex;
+                align-items: center;
+                img {
+                    width: 10vw;
+                    max-height: 20px;
+                }
+    
+            }
+        }
+        
+    }
+}

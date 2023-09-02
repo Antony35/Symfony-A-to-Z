@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: no-repeat url("https://picsum.photos/id/501/100/100");
+    background-position: center center;
+    background-size: cover;
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+

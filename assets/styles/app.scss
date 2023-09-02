@@ -1,2 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
-@import "./scss/main.scss";
+
+@import
+    './scss/layout/nav',
+    './scss/layout/footer';
+
+@import
+    './scss/pages/home/banner',
+    './scss/pages/home/realisation',
+    './scss/pages/home/news';
