@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ActualitiesController extends AbstractController
 {
-    #[Route('/actualities', name: 'app_actualities')]
+    #[Route('/actualities', name: 'actualities')]
     public function index(
         BlogPostRepository $blogPostRepository,
         PaginatorInterface $paginator,
@@ -20,7 +20,7 @@ class ActualitiesController extends AbstractController
     ): Response {
 
         $query = $blogPostRepository->createQueryBuilder('blogPost')
-                                    ->select('blogPost.titre','blogPost.contenu', 'blogPost.createdAt')
+                                    ->select('blogPost.titre', 'blogPost.contenu', 'blogPost.createdAt')
                                     ->getQuery();
 
         $actualities = $paginator->paginate(
