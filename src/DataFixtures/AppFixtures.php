@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
                          ->setDescription($faker->text(300))
                          ->setPortfolio($faker->boolean())
                          ->setSlug($faker->slug())
-                         ->setFile($faker->imageUrl($faker->randomNumber(3), $faker->randomNumber(3), 'animals'))
+                         ->setFile($faker->imageUrl(250, 250, 'animals'))
                          ->setUser($user)
                          ->addCategorie($categorie);
 

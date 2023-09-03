@@ -1,29 +1,14 @@
 <section class="paint">
-    <div class="paint__container">
-        <div class="paint__container__img">
-            <img src="https://picsum.photos/id/949/300/300" alt="building">
-        </div>
-        <div class="paint__container__description">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum labore illo earum nam, sed quas doloremque quam pariatur, placeat commodi voluptates ab numquam. Magnam, ullam rerum praesentium error facilis autem.</p>
-            <p class="date">Date</p>
-        </div>
-    </div>
-    <div class="paint__container">
-        <div class="paint__container__img">
-            <img src="https://picsum.photos/id/949/300/300" alt="building">
-        </div>
-        <div class="paint__container__description">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum labore illo earum nam, sed quas doloremque quam pariatur, placeat commodi voluptates ab numquam. Magnam, ullam rerum praesentium error facilis autem.</p>
-            <p class="date">Date</p>
-        </div>
-    </div>
-    <div class="paint__container">
-        <div class="paint__container__img">
-            <img src="https://picsum.photos/id/949/300/300" alt="building">
-        </div>
-        <div class="paint__container__description">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum labore illo earum nam, sed quas doloremque quam pariatur, placeat commodi voluptates ab numquam. Magnam, ullam rerum praesentium error facilis autem.</p>
-            <p class="date">Date</p>
-        </div>
-    </div>
+    {% for peinture in peintures %}
+        <div class="paint__container">
+            <div class="paint__container__img">
+                <img src="{{ peinture.file }}" alt="building">
+            </div>
+            <div class="paint__container__description">
+                <h3>{{ peinture.nom }}</h3>
+                <p>{{ peinture.description|u.truncate(200, '...', false) }}</p>
+                <p class="date">AJOUTÉE LE {{ peinture.createdAt|date('d/m/Y') }}</p>
+            </div>
+        </div>    
+    {% endfor %}
 </section>
