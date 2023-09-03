@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réalisations{% endblock %}
+
+{% block body %}
+<section class="realisation">
+    <div class="realisation__title">
+        <h1>Dernières Réalisation</h1>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint sapiente sunt rem reiciendis adipisci alias magni.</p>    
+    </div>
+    {% for peinture in peintures %}
+        <div class="realisation__container">
+            <h2>{{ peinture.nom }}</h2>
+            <img src="{{ peinture.file }}" alt="">
+            <p>{{ peinture.description }}</p>
+            <p>{{ peinture.createdAt|date('d/m/Y') }}</p>
+        </div>
+    {% endfor %}
+    <div>
+        {{ knp_pagination_render(peintures, 'base/pagination.html.twig') }}
+    </div>
+</section>
+{% endblock %}
