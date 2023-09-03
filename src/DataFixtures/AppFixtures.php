@@ -53,14 +53,14 @@ class AppFixtures extends Fixture
         }
 
         //Create of 5 categories
-        for ($c = 0; $c < 5; $c++) { 
+        for ($c = 0; $c < 5; $c++) {
             $categorie = new Categorie();
 
             $categorie->setNom($faker->word(1))
                   ->setDescription($faker->text(250))
                   ->setSlug($faker->slug(3));
 
-            $manager->persist($categorie);   
+            $manager->persist($categorie);
 
             //Create 2Paint/Categorie
             for ($p = 0; $p < 2; $p++) {
@@ -80,7 +80,7 @@ class AppFixtures extends Fixture
                          ->setUser($user)
                          ->addCategorie($categorie);
 
-                         $manager->persist($peinture);
+                $manager->persist($peinture);
             }
         }
 
