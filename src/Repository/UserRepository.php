@@ -48,7 +48,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->where('u.roles LIKE :roles')
                     ->setParameter('roles', '%ROLE_PEINTRE%')
                     ->getQuery()
-                    ->getOneOrNullResult();   
+                    ->getOneOrNullResult();
     }
 
     //    /**
