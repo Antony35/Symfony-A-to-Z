@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PortfolioController!{% endblock %}
+
+{% block body %}
+<section>
+    {% for categorie in categories %}
+        {% set img = categorie.peintures|last %}
+        <a href="{{ path('portfolio_categorie', { 'slug': categorie.slug }) }}">
+            <div> 
+                <img src="{{ img.file }}" alt="">  
+                <p>{{ categorie.nom }}</p>    
+                <p>{{ categorie.description }}</p>            
+            </div>
+        </a>
+    {% endfor %}
+</section>
+{% endblock %}
+ 
