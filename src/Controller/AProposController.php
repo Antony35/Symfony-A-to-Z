@@ -17,4 +17,4 @@ class AProposController extends AbstractController
             'userPeinter' => $userRepository->getPeintre(),
         ]);
     }
-}
+} 
