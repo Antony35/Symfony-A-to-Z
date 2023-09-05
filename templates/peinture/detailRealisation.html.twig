@@ -12,8 +12,9 @@
             <strong>L'oeuvre est en vente</strong>
             <strong>{{ peinture.prix }}</strong>
         {% endif %}        
-        <p>Categorie : {{ peinture.categorie | map(categorie => categorie.nom) | join(', ') }}</p>
-
+        {% for categorie in peinture.categorie %}
+            <p>{{ categorie.nom }}</p>
+        {% endfor %}
 
     </section>
 {% endblock %}
