@@ -9,11 +9,13 @@
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint sapiente sunt rem reiciendis adipisci alias magni.</p>    
     </div>
     {% for actuality in actualities %}
-        <div class="realisation__container">
-            <h2>{{ actuality.titre }}</h2>
-            <p>{{ actuality.contenu }}</p>
-            <p>{{ actuality.createdAt|date('d/m/Y') }}</p>
-        </div>
+        <a href="{{ path('detail_actuality', {'slug' : actuality.slug} ) }}">
+            <div class="realisation__container">
+                <h2>{{ actuality.titre }}</h2>
+                <p>{{ actuality.contenu }}</p>
+                <p>{{ actuality.createdAt|date('d/m/Y') }}</p>
+            </div>
+        </a>
     {% endfor %}
     <div>
         {{ knp_pagination_render(actualities, 'base/pagination.html.twig') }}

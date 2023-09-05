@@ -19,9 +19,7 @@ class ActualitiesController extends AbstractController
         Request $request
     ): Response {
 
-        $query = $blogPostRepository->createQueryBuilder('blogPost')
-                                    ->select('blogPost.titre', 'blogPost.contenu', 'blogPost.createdAt')
-                                    ->getQuery();
+        $query = $blogPostRepository->findAll();
 
         $actualities = $paginator->paginate(
             $query, /* query NOT result */
@@ -31,6 +29,14 @@ class ActualitiesController extends AbstractController
 
         return $this->render('actualities/actualities.html.twig', [
             'actualities' => $actualities
+        ]);
+    }
+
+    #[Route('actualities/{slug}', name: 'detail_actuality')]
+    public function detailsActuality(BlogPost $blogPost): Response
+    {
+        return $this->render('actualities/detail_actuality.html.twig', [
+            'blogPost' => $blogPost,
         ]);
     }
 }
