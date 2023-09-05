@@ -1,11 +1,11 @@
 {% block body %}
 <section class="news">
-    {% for blogPost in blogPosts %}
-        <a href="{{ path('detail_actuality', 'slug' : blogPost.slug) }}">
+    {% for actuality in actualities %}
+        <a href="{{ path('detail_actuality', { 'slug' : actuality.slug } ) }}">
             <div>
-                <h2>{{ blogPost.titre }}</h2>
-                <p>{{ blogPost.contenu|u.truncate(150, '...', false) }}</p>
-                <p>Crée le : {{ blogPost.createdAt|date('d/m/Y') }}</p>
+                <h2>{{ actuality.titre }}</h2>
+                <p>{{ actuality.contenu|u.truncate(150, '...', false) }}</p>
+                <p>Crée le : {{ actuality.createdAt|date('d/m/Y') }}</p>
             </div>
         </a>
     {% endfor %}

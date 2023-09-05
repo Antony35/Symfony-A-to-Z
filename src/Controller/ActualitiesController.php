@@ -36,7 +36,7 @@ class ActualitiesController extends AbstractController
     public function detailsActuality(BlogPost $blogPost): Response
     {
         return $this->render('actualities/detail_actuality.html.twig', [
-            'blogPost' => $blogPost,
+            'actuality' => $blogPost,
         ]);
     }
 }

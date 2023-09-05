@@ -1,11 +1,11 @@
-{# {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Réalisations{% endblock %}
 
 {% block body %}
     <section>
-        <h1>{{ blogPost.titre }}</h1>
-        <p>{{ blogPost.contenu }}</p>
-        <p>{{ blogPost.createdAt | date('d/m/Y') }}</p>
+        <h1>{{ actuality.titre }}</h1>
+        <p>{{ actuality.contenu }}</p>
+        <p>{{ actuality.createdAt | date('d/m/Y') }}</p>
     </section>
-{% endblock %} #}
+{% endblock %}
