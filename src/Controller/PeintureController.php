@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Peinture;
 use App\Repository\PeintureRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +29,14 @@ class PeintureController extends AbstractController
 
         return $this->render('peinture/realisations.html.twig', [
             'peintures' => $peintures,
+        ]);
+    }
+
+    #[Route('/realisation/{slug}', name: 'datail_realisation')]
+    public function detailRealisation(Peinture $peinture): Response
+    {
+        return $this->render('peinture/detailRealisation.html.twig', [
+            'peinture' => $peinture,
         ]);
     }
 }
