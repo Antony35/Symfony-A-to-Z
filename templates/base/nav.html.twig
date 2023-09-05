@@ -16,8 +16,9 @@
               Portfolio
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Catégorie 1</a></li>
-              <li><a class="dropdown-item" href="#">Catégorie 2</a></li>
+              {% for categorie in getCategories() %}
+              <li><a class="dropdown-item" href="{{ path('portfolio_categorie', {'slug': categorie.slug}) }}">{{ categorie.nom }}</a></li>
+              {% endfor %}
             </ul>
           </li>
           <li class="nav-item">
