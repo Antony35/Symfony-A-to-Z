@@ -1,14 +1,16 @@
 <section class="paint">
     {% for peinture in peintures %}
-        <div class="paint__container">
-            <div class="paint__container__img">
-                <img src="{{ peinture.file }}" alt="building">
-            </div>
-            <div class="paint__container__description">
-                <h3>{{ peinture.nom }}</h3>
-                <p>{{ peinture.description|u.truncate(200, '...', false) }}</p>
-                <p class="date">AJOUTÉE LE {{ peinture.createdAt|date('d/m/Y') }}</p>
-            </div>
-        </div>    
+        <a href="{{ path('datail_realisation', { 'slug' : peinture.slug } ) }}">
+            <div class="paint__container">
+                <div class="paint__container__img">
+                    <img src="{{ peinture.file }}" alt="building">
+                </div>
+                <div class="paint__container__description">
+                    <h3>{{ peinture.nom }}</h3>
+                    <p>{{ peinture.description|u.truncate(200, '...', false) }}</p>
+                    <p class="date">AJOUTÉE LE {{ peinture.createdAt|date('d/m/Y') }}</p>
+                </div>
+            </div> 
+        </a>   
     {% endfor %}
 </section>
