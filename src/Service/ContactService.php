@@ -20,7 +20,7 @@ class ContactService extends AbstractController
     {
         $contact->setIsSend(false);
         $contact->setCreatedAt(new DateTimeImmutable('now'));
-        
+
         $this->manager->persist($contact);
         $this->manager->flush();
 

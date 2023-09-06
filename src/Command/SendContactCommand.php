@@ -37,8 +37,8 @@ class SendContactCommand extends Command
     {
         $toSend = $this->contactRepository->findBy(['isSend' => false]);
         $adress = new Address(
-            $this->userRepository->getPeintre()->getEmail(), 
-            $this->userRepository->getPeintre()->getNom() . ' ' . 
+            $this->userRepository->getPeintre()->getEmail(),
+            $this->userRepository->getPeintre()->getNom() . ' ' .
             $this->userRepository->getPeintre()->getPrenom()
         );
 
