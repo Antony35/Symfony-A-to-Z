@@ -11,7 +11,8 @@ class ContactService extends AbstractController
 {
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager) {
+    public function __construct(EntityManagerInterface $manager)
+    {
         $this->manager = $manager;
     }
 
@@ -26,7 +27,7 @@ class ContactService extends AbstractController
         $this->addFlash('success', 'Message envoyé');
     }
 
-    public function isSend(Contact $contact):void
+    public function isSend(Contact $contact): void
     {
         $contact->setIsSend(true);
 
