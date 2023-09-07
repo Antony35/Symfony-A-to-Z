@@ -25,7 +25,18 @@ composer install
 npm install
 npm run build
 docker-compose up -d
+### Update IP adress for DBB and SMTP in .env ###
+./bin/bash/update_ips.sh
+### If FIRST TIME allow chmod ###
+chmod +x ./bin/bash/update_ips.sh
+symfony console make:migration
+synfony console d:m:m
 symfony serve -d
+```
+
+### Start async sender message in background ###
+```bash
+php bin/console messenger:consume async -vv
 ```
 
 ### Ajouter des données de tests

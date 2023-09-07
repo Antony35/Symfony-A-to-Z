@@ -7,6 +7,3 @@ services:
             MYSQL_DATABASE: main
         ports:
             - '3306'
-    mailer:
-        image: schickling/mailcatcher
-        ports: [1025, 1080]
