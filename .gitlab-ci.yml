@@ -7,7 +7,7 @@ cache:
 
 services:
     - name: mysql:8.0
-    alias: mysql
+      alias: mysql
 
 variables:
     MYSQL_ROOT_PASSWORD: pass_test
