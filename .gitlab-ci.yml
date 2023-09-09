@@ -34,7 +34,7 @@ before_script:
     - npm run build
 
 phpunit:
-    stage: Tests
+    stage: test
     script:
         - php bin/phpunit
     allow_failure: false
