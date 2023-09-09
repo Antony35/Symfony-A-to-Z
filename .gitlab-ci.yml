@@ -37,7 +37,7 @@ twig-lint:
     allow_failure: false
 
 phpunit:
-    image: 8.1.23-cli-alpine3.16
+    image: php:8.1-cli
     stage: Tests
     services:
         - name: mysql:latest
