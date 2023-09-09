@@ -47,7 +47,7 @@ phpunit:
         MYSQL_DATABASE: myapptest
         MYSQL_USER: myapptest
         MYSQL_PASSWORD: myapptest
-        DATABASE_URL: 'mysql://myapptest:myapptest@db-mysql:3306/myapptest'
+        DATABASE_URL: 'mysql://myapptest:myapptest@db-mysql:3306/myapptest_test'
     before_script:
         - apt-get update && apt-get install -y git libzip-dev nodejs npm
         - curl -sSK https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
