@@ -1,32 +1,40 @@
 image: php:8.1-apache
 
-stages:
-  - Tests
+# Select what we should cache between builds
+cache:
+    paths:
+        - vendor/
 
 services:
-  - name: mysql:8.0
+    - name: mysql:8.0
     alias: mysql
 
 variables:
-  MYSQL_ROOT_PASSWORD: pass_test
-  MYSQL_DATABASE: myapptest
-  MYSQL_USER: myapptest
-  MYSQL_PASSWORD: myapptest
-  DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
+    MYSQL_ROOT_PASSWORD: pass_test
+    MYSQL_DATABASE: myapptest
+    MYSQL_USER: myapptest
+    MYSQL_PASSWORD: myapptest
+    DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
 
 before_script:
-  - apt-get update && apt-get install -y git libzip-dev nodejs npm
-  - curl -sSK https://getcomposer.org/installer -o composer-script.sh && php composer-script.sh -- --disable-tls && mv composer.phar /usr/local/bin/composer
-  - docker-php-ext-install mysqli pdo pdo_mysql zip
-  - find / -name composer.phar 2>/dev/null
-  - composer install
-
-cache:
-  paths:
-    - vendor/
+    - apt-get update -yqq
+    - apt-get install -yqq git libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev
+    # Install PHP extensions
+    - docker-php-ext-install mbstring pdo_pgsql curl intl gd xml zip bz2 opcache
+    # Delete / create / migration / add Fixture / Database
+    - php bin/console doctrine:database:drop --force --env=test
+    - php bin/console doctrine:database:create --env=test
+    - php bin/console doctrine:migration:migrate --env=test
+    - php bin/console doctrine:fixtures:load --no-interaction
+    # Install and run Composer
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
+    # Install npm and run build
+    - npm install
+    - npm run build
 
 phpunit:
-  stage: Tests
-  script:
-    - php bin/phpunit
-  allow_failure: false
+    stage: Tests
+        script:
+        - php bin/phpunit
+    allow_failure: false
