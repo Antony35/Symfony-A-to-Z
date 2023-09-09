@@ -18,7 +18,7 @@ class SendContactCommand extends Command
     private $mailer;
     private $contactService;
     private $userRepository;
-    
+
     public function __construct(
         ContactRepository $contactRepository,
         MailerInterface $mailer,
@@ -39,7 +39,7 @@ class SendContactCommand extends Command
             ->setDescription('Description de la commande');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $toSend = $this->contactRepository->findBy(['isSend' => false]);
         $adress = new Address(
