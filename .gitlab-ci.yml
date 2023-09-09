@@ -50,13 +50,14 @@ phpunit:
         DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
     before_script:
         - apt-get update && apt-get install -y git libzip-dev nodejs npm
-        - curl -sSK https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/bin/composer
+        - curl -sSK https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
         - docker-php-ext-install mysqli pdo pdo_mysql zip
         - php bin/console doctrine:database:drop --force --env=test
         - php bin/console doctrine:database:create --env=test
         - php bin/console doctrine:migration:migrate --env=test
         - php bin/console doctrine:fixtures:load --no-interaction
-        - composer install
+        - echo $PATH
+        - /usr/local/bin/composer install
         - npm install
         - npm run build
     script:
