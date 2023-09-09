@@ -37,10 +37,10 @@ twig-lint:
     allow_failure: false
 
 phpunit:
-    image: php:7.4-apache
+    image: php:8.1-apache
     stage: Tests
     services:
-        - name: mysql:5.4
+        - name: mysql:8.0
           alias: mysql
     variables:
         MYSQL_ROOT_PASSWORD: pass_test
