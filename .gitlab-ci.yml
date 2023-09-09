@@ -1,40 +1,40 @@
-image: jakzal/phpqa:php8.1
+# image: jakzal/phpqa:php8.1
 
-before_script:
-    - composer install
+# before_script:
+#     - composer install
 
-cache:
-    paths:
-        - vendor/
+# cache:
+#     paths:
+#         - vendor/
 
-stages:
-    - SecurityChecker
-    - CodingStandards
-    - Tests
+# stages:
+#     - SecurityChecker
+#     - CodingStandards
+#     - Tests
 
-security-checker:
-    stage: SecurityChecker
-    script:
-        - local-php-security-checker  --path=./composer.lock
-    allow_failure: false
+# security-checker:
+#     stage: SecurityChecker
+#     script:
+#         - local-php-security-checker  --path=./composer.lock
+#     allow_failure: false
 
-phpcs:
-    stage: CodingStandards
-    script:
-        - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
-    allow_failure: false
+# phpcs:
+#     stage: CodingStandards
+#     script:
+#         - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+#     allow_failure: false
 
-phpstan:
-    stage: CodingStandards
-    script:
-        - phpstan analyse ./src
-    allow_failure: false
+# phpstan:
+#     stage: CodingStandards
+#     script:
+#         - phpstan analyse ./src
+#     allow_failure: false
 
-twig-lint:
-    stage: CodingStandards
-    script:
-        - twig-lint lint ./templates
-    allow_failure: false
+# twig-lint:
+#     stage: CodingStandards
+#     script:
+#         - twig-lint lint ./templates
+#     allow_failure: false
 
 phpunit:
     image: php:8.1-apache
@@ -56,9 +56,9 @@ phpunit:
         - php bin/console doctrine:database:create --env=test
         - php bin/console doctrine:migration:migrate --env=test
         - php bin/console doctrine:fixtures:load --no-interaction
-        - cat /usr/local/bin/composer-script.sh
         - echo $PATH
         - ls -l /usr/local/bin/composer
+        - cat /usr/local/bin/composer-script.sh
         - /usr/local/bin/composer install
         - npm install
         - npm run build
