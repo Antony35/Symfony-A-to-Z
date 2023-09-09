@@ -59,16 +59,16 @@ class AppFixtures extends Fixture
 
         //Set 10 blogPost *** TEST ***
         for ($p = 0; $p < 10; $p++) {
-        $blogPost = new BlogPost();
+            $blogPost = new BlogPost();
 
-        $blogPost->setTitre('Blogpost Test')
-        ->setContenu($faker->text(350))
-        ->setSlug('blogpost-test')
-        ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
-        ->setUser($user);
+            $blogPost->setTitre('Blogpost Test')
+            ->setContenu($faker->text(350))
+            ->setSlug('blogpost-test')
+            ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
+            ->setUser($user);
 
-        $manager->persist($blogPost);
-}   
+            $manager->persist($blogPost);
+        }
 
         //Create of 5 categories et 2 peintures / catégorie
         for ($c = 0; $c < 5; $c++) {
@@ -103,12 +103,12 @@ class AppFixtures extends Fixture
         }
 
         //Création d'une catégorie pour les tests
-        $categorie = new Categorie;
-        
+        $categorie = new Categorie();
+
         $categorie->setNom('categorie test')
                   ->setDescription($faker->word(10, true))
                   ->setSlug('categorie-test');
-        
+
         //Création d'une peinture pour les tests
         $peinture->setNom('peinture test')
                   ->setLargeur($faker->randomFloat(2, 10, 100))
