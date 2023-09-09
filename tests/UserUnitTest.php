@@ -2,6 +2,8 @@
 
 namespace App\Tests;
 
+use App\Entity\BlogPost;
+use App\Entity\Peinture;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -17,8 +19,8 @@ class UserUnitTest extends TestCase
              ->setPassword('password')
              ->setTelephone('00 00 00')
              ->setAPropos('a propos')
-             ->setInstagram('instagram');
-
+             ->setInstagram('instagram')
+             ->setRoles(['ROLE_TEST']);
 
         $this->assertTrue($user->getEmail() === 'true@test.com');
         $this->assertTrue($user->getPrenom() === 'prenom');
@@ -27,6 +29,7 @@ class UserUnitTest extends TestCase
         $this->assertTrue($user->getTelephone() === '00 00 00');
         $this->assertTrue($user->getAPropos() === 'a propos');
         $this->assertTrue($user->getInstagram() === 'instagram');
+        $this->assertTrue($user->getRoles() === ['ROLE_TEST', 'ROLE_USER']);
     }
 
     public function testisFalse()
@@ -39,7 +42,8 @@ class UserUnitTest extends TestCase
              ->setPassword('password')
              ->setTelephone('00 00 00')
              ->setAPropos('a propos')
-             ->setInstagram('instagram');
+             ->setInstagram('instagram')
+             ->setRoles(['ROLE_TEST']);
 
 
         $this->assertFalse($user->getEmail() === 'false@test.com');
@@ -49,6 +53,7 @@ class UserUnitTest extends TestCase
         $this->assertFalse($user->getTelephone() === '01 01 01');
         $this->assertFalse($user->getAPropos() === 'false');
         $this->assertFalse($user->getInstagram() === 'false');
+        $this->assertFalse($user->getRoles() === ['ROLE_FALSE', 'ROLE_USER']);
     }
 
     public function testisEmpty()
@@ -62,5 +67,35 @@ class UserUnitTest extends TestCase
         $this->assertEmpty($user->getTelephone());       
         $this->assertEmpty($user->getAPropos());       
         $this->assertEmpty($user->getInstagram());       
+        $this->assertEmpty($user->getId());       
+        $this->assertEmpty($user->getUserIdentifier());       
+    }
+
+    public function testGetAddRemovePeinture()
+    {
+        $user = New User;
+        $peinture = New Peinture;
+
+        $this->assertEmpty($user->getPeintures());
+        
+        $user->addPeinture($peinture);
+        $this->assertContains($peinture, $user->getPeintures());
+
+        $user->removePeinture($peinture);
+        $this->assertEmpty($user->getPeintures());
+    }
+
+    public function testGetAddRemoveBlogPost()
+    {
+        $user = New User;
+        $blogPost = New BlogPost;
+
+        $this->assertEmpty($user->getBlogPosts());
+        
+        $user->addBlogPost($blogPost);
+        $this->assertContains($blogPost, $user->getBlogPosts());
+
+        $user->removeBlogPost($blogPost);
+        $this->assertEmpty($user->getBlogPosts());
     }
 }

@@ -18,8 +18,7 @@ class SendContactCommand extends Command
     private $mailer;
     private $contactService;
     private $userRepository;
-    protected static $defaultName = 'app:send-contact';
-
+    
     public function __construct(
         ContactRepository $contactRepository,
         MailerInterface $mailer,
@@ -33,7 +32,14 @@ class SendContactCommand extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function configure()
+    {
+        $this
+            ->setName('app:send-contact') // Définir le nom de la commande ici
+            ->setDescription('Description de la commande');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $toSend = $this->contactRepository->findBy(['isSend' => false]);
         $adress = new Address(

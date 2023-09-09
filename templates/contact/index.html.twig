@@ -3,6 +3,8 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
+    <h1>Contacter moi</h1>
+    <p>Dite moi tout par message</p>
     <section>
         {{ form_start(form) }}
             {% for message in app.flashes('success') %}

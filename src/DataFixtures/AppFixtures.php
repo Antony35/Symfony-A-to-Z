@@ -11,6 +11,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class AppFixtures extends Fixture
 {
     private $encoder;
@@ -25,6 +28,7 @@ class AppFixtures extends Fixture
         // use the factory to create a Faker\Generator instance
         $faker = Faker\Factory::create('fr_FR');
 
+        //Set user data
         $user = new User();
 
         $user->setEmail('user@test.com')
@@ -40,7 +44,7 @@ class AppFixtures extends Fixture
 
         $manager->persist($user);
 
-        //created 10 blogPost
+        //Set 10 blogPost
         for ($p = 0; $p < 10; $p++) {
             $blogPost = new BlogPost();
 
@@ -53,7 +57,20 @@ class AppFixtures extends Fixture
             $manager->persist($blogPost);
         }
 
-        //Create of 5 categories
+        //Set 10 blogPost *** TEST ***
+        for ($p = 0; $p < 10; $p++) {
+        $blogPost = new BlogPost();
+
+        $blogPost->setTitre('Blogpost Test')
+        ->setContenu($faker->text(350))
+        ->setSlug('blogpost-test')
+        ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
+        ->setUser($user);
+
+        $manager->persist($blogPost);
+}   
+
+        //Create of 5 categories et 2 peintures / catégorie
         for ($c = 0; $c < 5; $c++) {
             $categorie = new Categorie();
 
@@ -85,6 +102,27 @@ class AppFixtures extends Fixture
             }
         }
 
+        //Création d'une catégorie pour les tests
+        $categorie = new Categorie;
+        
+        $categorie->setNom('categorie test')
+                  ->setDescription($faker->word(10, true))
+                  ->setSlug('categorie-test');
+        
+        //Création d'une peinture pour les tests
+        $peinture->setNom('peinture test')
+                  ->setLargeur($faker->randomFloat(2, 10, 100))
+                  ->setHauteur($faker->randomFloat(2, 10, 100))
+                  ->setEnVente($faker->boolean())
+                  ->setPrix($faker->randomFloat(2, 10, 500))
+                  ->setDateRealisation($faker->dateTimeBetween('-20 years', 'now'))
+                  ->setCreatedAt($faker->dateTime())
+                  ->setDescription($faker->text(300))
+                  ->setPortfolio($faker->boolean())
+                  ->setSlug('peinture-test')
+                  ->setFile($faker->imageUrl(250, 250, 'animals'))
+                  ->setUser($user)
+                  ->addCategorie($categorie);
         $manager->flush();
     }
 }

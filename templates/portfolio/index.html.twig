@@ -3,6 +3,8 @@
 {% block title %}Hello PortfolioController!{% endblock %}
 
 {% block body %}
+<h1>Portfolio</h1>
+<p>Mes meilleur ouevre</p>
 <section>
     {% for categorie in categories %}
         {% set img = categorie.peintures|last %}
