@@ -37,6 +37,7 @@ twig-lint:
     allow_failure: false
 
 phpunit:
+    stage: UnitTests
     script:
         - php bin/phpunit
-        allow_failure: false
+    allow_failure: false
