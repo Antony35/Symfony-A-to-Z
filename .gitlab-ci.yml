@@ -36,5 +36,5 @@ before_script:
 phpunit:
     stage: Tests
         script:
-        - php bin/phpunit
-    allow_failure: false
+            - php bin/phpunit
+        allow_failure: false
