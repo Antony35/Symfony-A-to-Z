@@ -40,7 +40,7 @@ phpunit:
     image: php:8.1-apache
     stage: Tests
     services:
-        name: mysql:5.7
+        - name: [mysql:5.7]
         alias: mysql
     variables:
         MYSQL_ROOT_PASSWORD: pass_test
@@ -51,9 +51,9 @@ phpunit:
     before_script:
         -apt-get update && apt-get install -y git libzip-dev nodejs npm
         -curl -sSK https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
-        -docker-php-ext-install mysqli pdo pdo_mysql zib
+        -docker-php-ext-install mysqli pdo pdo_mysql zip
         -php bin/console doctrine:database:drop --force --env=test
-        -php bin/console doctrine:databasecreate --env=test
+        -php bin/console doctrine:database:create --env=test
         -php bin/console doctrine:migration:migrate --env=test
         -php bin/console doctrine:fixtures:load --no-interaction
         -composer install
