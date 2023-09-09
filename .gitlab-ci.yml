@@ -1,40 +1,70 @@
-image: php:8.1-apache
+image: jakzal/phpqa:php8.1
+
+before_script:
+    - composer install
 
 # Select what we should cache between builds
 cache:
     paths:
         - vendor/
 
-services:
-    - name: mysql:8.0
-      alias: mysql
+stages:
+    - SecurityChecker
+    - CodingStandards
+    - Tests
 
-variables:
-    MYSQL_ROOT_PASSWORD: pass_test
-    MYSQL_DATABASE: myapptest
-    MYSQL_USER: myapptest
-    MYSQL_PASSWORD: myapptest
-    DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
+security-checker:
+    stage: SecurityChecker
+    script:
+        - local-php-security-checker  --path=./composer.lock
+    allow_failure: false
 
-before_script:
-    - apt-get update -yqq
-    - apt-get install -yqq git libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev nodejs npm
-    # Install PHP extensions
-    - docker-php-ext-install mysqli pdo pdo_mysql mbstring pdo_pgsql curl intl gd xml zip bz2 opcache
-    # Delete / create / migration / add Fixture / Database
-    - php bin/console doctrine:database:drop --force --env=test
-    - php bin/console doctrine:database:create --env=test
-    - php bin/console doctrine:migration:migrate --env=test
-    - php bin/console doctrine:fixtures:load --no-interaction
-    # Install and run Composer
-    - curl -sS https://getcomposer.org/installer | php
-    - php composer.phar install
-    # Install npm and run build
-    - npm install
-    - npm run build
+phpcs:
+    stage: CodingStandards
+    script:
+        - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+    allow_failure: false
+
+phpstan:
+    stage: CodingStandards
+    script:
+        - phpstan analyse ./src
+    allow_failure: false
+
+twig-lint:
+    stage: CodingStandards
+    script:
+        - twig-lint lint ./templates
+    allow_failure: false
 
 phpunit:
-    stage: test
+    image: php:8.1-apache
+    stage: Tests
+    services:
+        - name: mysql:8.0
+          alias: mysql
+    variables:
+        MYSQL_ROOT_PASSWORD: pass_test
+        MYSQL_DATABASE: myapptest
+        MYSQL_USER: myapptest
+        MYSQL_PASSWORD: myapptest
+        DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
+    before_script:
+        - apt-get update -yqq
+        - apt-get install -yqq git libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev nodejs npm
+        # Install PHP extensions
+        - docker-php-ext-install mysqli pdo pdo_mysql mbstring pdo_pgsql curl intl gd xml zip bz2 opcache
+        # Delete / create / migration / add Fixture / Database
+        - php bin/console doctrine:database:drop --force --env=test
+        - php bin/console doctrine:database:create --env=test
+        - php bin/console doctrine:migration:migrate --env=test
+        - php bin/console doctrine:fixtures:load --no-interaction
+        # Install and run Composer
+        - curl -sS https://getcomposer.org/installer | php
+        - php composer.phar install
+        # Install npm and run build
+        - npm install
+        - npm run build
     script:
         - php bin/phpunit
     allow_failure: false
