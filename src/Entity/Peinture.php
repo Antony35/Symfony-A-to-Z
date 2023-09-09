@@ -53,7 +53,7 @@ class Peinture
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'peintures')]
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'peintures', cascade:["persist"])]
     private Collection $categorie;
 
     #[ORM\OneToMany(mappedBy: 'peinture', targetEntity: Commentaire::class)]

@@ -16,7 +16,7 @@ class AppExtension extends AbstractExtension
         $this->categories = $categorieRepository;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('getCategories', [$this, 'getCategories']),

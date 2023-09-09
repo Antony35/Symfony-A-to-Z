@@ -31,13 +31,11 @@ docker-compose up -d
 chmod +x ./bin/bash/update_ips.sh
 symfony console make:migration
 synfony console d:m:m
+### Start async sender message in background ###
+php bin/console messenger:consume async -vv
 symfony serve -d
 ```
 
-### Start async sender message in background ###
-```bash
-php bin/console messenger:consume async -vv
-```
 
 ### Ajouter des données de tests
 

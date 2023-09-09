@@ -49,13 +49,16 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "dbrekelmans/bdi": "^1.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.23",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/php-code-coverage": "^9.2",
+        "phpunit/phpunit": "^9.0",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
         "symfony/debug-bundle": "6.1.*",
         "symfony/maker-bundle": "^1.50",
+        "symfony/panther": "^2.1",
         "symfony/phpunit-bridge": "^6.3",
         "symfony/stopwatch": "6.1.*",
         "symfony/web-profiler-bundle": "6.1.*"
@@ -109,7 +112,8 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.1.*"
+            "require": "6.1.*",
+            "docker": true
         }
     }
 }
