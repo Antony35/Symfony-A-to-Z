@@ -42,7 +42,6 @@ jobs:
         mkdir -p data
         touch data/database.sqlite
         name: Get APP_SECRET, DB_USER, DB_PASSWORD and DB_NAME from secrets repository
-        run: |
         env:
           APP_SECRET: ${{ secrets.APP_SECRET }}
           DB_USER: ${{ secrets.DB_USER }}
@@ -50,5 +49,5 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+        DATABASE_URL: "mysql://${DB_USER}:${DB_PASSWORD}@localhost/${DB_NAME}"
       run: vendor/bin/phpunit
