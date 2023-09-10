@@ -19,7 +19,7 @@ class ActualitiesController extends AbstractController
         Request $request
     ): Response {
 
-        $query = $blogPostRepository->findAll();
+        $query = $blogPostRepository->findBy([], ['id' => 'DESC']);
 
         $actualities = $paginator->paginate(
             $query, /* query NOT result */

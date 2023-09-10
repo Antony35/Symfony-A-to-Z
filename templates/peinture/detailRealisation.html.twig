@@ -7,7 +7,7 @@
     <p>Pour tout savoir sur elle</p>
     <section>
         <h1>{{ peinture.nom }}</h1>
-        <img src="{{ peinture.file }}" alt="">
+        <img src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="">
         <p>Largeur : {{ peinture.largeur }}</p>
         <p>Hauteur : {{ peinture.hauteur }}</p>
         {% if peinture.enVente %}

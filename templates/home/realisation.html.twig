@@ -3,7 +3,7 @@
         <a href="{{ path('datail_realisation', { 'slug' : peinture.slug } ) }}">
             <div class="paint__container">
                 <div class="paint__container__img">
-                    <img src="{{ peinture.file }}" alt="building">
+                    <img src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="" width="200" height="200">
                 </div>
                 <div class="paint__container__description">
                     <h3>{{ peinture.nom }}</h3>

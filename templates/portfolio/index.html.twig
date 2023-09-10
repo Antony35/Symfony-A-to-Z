@@ -7,10 +7,10 @@
 <p>Mes meilleur ouevre</p>
 <section>
     {% for categorie in categories %}
-        {% set img = categorie.peintures|last %}
+        {% set peinture = categorie.peintures|last %}
         <a href="{{ path('portfolio_categorie', { 'slug': categorie.slug }) }}">
             <div> 
-                <img src="{{ img.file }}" alt="">  
+                <img src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="" width="200" height="200">
                 <p>{{ categorie.nom }}</p>    
                 <p>{{ categorie.description }}</p>            
             </div>

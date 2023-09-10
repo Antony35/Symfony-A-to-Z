@@ -25,3 +25,6 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+/public/uploads/peintures/*
+!public/uploads/peintures/tree-and-space-64fdc0500d9dc476762509.jpg
