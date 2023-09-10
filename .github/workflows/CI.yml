@@ -43,10 +43,10 @@ jobs:
         touch data/database.sqlite
         name: Get APP_SECRET, DB_USER, DB_PASSWORD and DB_NAME from secrets repository
         run: |
-          echo "::set-env name=APP_SECRET::${{ secrets.APP_SECRET }}"
-          echo "::set-env name=DB_USER::${{ secrets.DB_USER }}"
-          echo "::set-env name=DB_PASSWORD::${{ secrets.DB_PASSWORD }}"
-          echo "::set-env name=DB_NAME::${{ secrets.DB_NAME }}"
+          echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> $GITHUB_ENV
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> $GITHUB_ENV
         env:
           APP_SECRET: ${{ secrets.APP_SECRET }}
           DB_USER: ${{ secrets.DB_USER }}
