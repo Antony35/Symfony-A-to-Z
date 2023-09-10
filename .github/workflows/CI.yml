@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on: [push]
 
@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: jakzal/phpqa:php8.1
+      
     steps:
     - name: Check security
+      working-directory: ../..
       run: |
         composer install
         composer require sensiolabs/security-checker
@@ -22,6 +24,7 @@ jobs:
       image: jakzal/phpqa:php8.1
     steps:
     - name: Check coding standards
+      working-directory: ../..
       run: |
         composer install
         composer require --dev squizlabs/php_codesniffer
@@ -35,6 +38,7 @@ jobs:
       image: jakzal/phpqa:php8.1
     steps:
     - name: Run PHPStan
+      working-directory: ../..
       run: |
         composer install
         composer require --dev phpstan/phpstan
@@ -48,6 +52,7 @@ jobs:
       image: jakzal/phpqa:php8.1
     steps:
     - name: Lint Twig templates
+      working-directory: ../..
       run: |
         composer install
         composer require --dev friendsoftwig/twig-lint
