@@ -1,5 +1,6 @@
 
 ###> symfony/framework-bundle ###
+.env
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -28,3 +29,4 @@ yarn-error.log
 
 /public/uploads/peintures/*
 !public/uploads/peintures/tree-and-space-64fdc0500d9dc476762509.jpg
+
