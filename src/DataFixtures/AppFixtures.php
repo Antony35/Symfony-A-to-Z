@@ -94,7 +94,7 @@ class AppFixtures extends Fixture
                          ->setDescription($faker->text(300))
                          ->setPortfolio($faker->boolean())
                          ->setSlug($faker->slug())
-                         ->setFile($faker->imageUrl(250, 250, 'animals'))
+                         ->setFile('tree-and-space-64fdc0500d9dc476762509.jpg')
                          ->setUser($user)
                          ->addCategorie($categorie);
 
@@ -120,7 +120,7 @@ class AppFixtures extends Fixture
                   ->setDescription($faker->text(300))
                   ->setPortfolio($faker->boolean())
                   ->setSlug('peinture-test')
-                  ->setFile($faker->imageUrl(250, 250, 'animals'))
+                  ->setFile('tree-and-space-64fdc0500d9dc476762509.jpg')
                   ->setUser($user)
                   ->addCategorie($categorie);
         $manager->flush();
