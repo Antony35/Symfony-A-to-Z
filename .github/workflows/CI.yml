@@ -1,101 +1,47 @@
-name: CI
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
 
-on: [push]
+name: Symfony
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
 
 jobs:
-  security-checker:
+  symfony-tests:
     runs-on: ubuntu-latest
-    container:
-      image: jakzal/phpqa:php8.1
-      
     steps:
-    - name: Check security
-      working-directory: ../..
-      run: |
-        composer install
-        composer require sensiolabs/security-checker
-        vendor/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock
-      env:
-        COMPOSER_ALLOW_SUPERUSER: 1
-
-  coding-standards:
-    runs-on: ubuntu-latest
-    container:
-      image: jakzal/phpqa:php8.1
-    steps:
-    - name: Check coding standards
-      working-directory: ../..
-      run: |
-        composer install
-        composer require --dev squizlabs/php_codesniffer
-        ./vendor/bin/phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
-      env:
-        COMPOSER_ALLOW_SUPERUSER: 1
-
-  phpstan:
-    runs-on: ubuntu-latest
-    container:
-      image: jakzal/phpqa:php8.1
-    steps:
-    - name: Run PHPStan
-      working-directory: ../..
-      run: |
-        composer install
-        composer require --dev phpstan/phpstan
-        ./vendor/bin/phpstan analyse ./src
-      env:
-        COMPOSER_ALLOW_SUPERUSER: 1
-
-  twig-lint:
-    runs-on: ubuntu-latest
-    container:
-      image: jakzal/phpqa:php8.1
-    steps:
-    - name: Lint Twig templates
-      working-directory: ../..
-      run: |
-        composer install
-        composer require --dev friendsoftwig/twig-lint
-        ./vendor/bin/twig-lint lint ./templates
-      env:
-        COMPOSER_ALLOW_SUPERUSER: 1
-
-  phpunit:
-    runs-on: ubuntu-latest
-    container:
-      image: php:8.1-apache
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: pass_test
-          MYSQL_DATABASE: myapptest
-          MYSQL_USER: myapptest
-          MYSQL_PASSWORD: myapptest
-        ports:
-          - 3306:3306
-    steps:
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
+    #  To automatically get bug fixes and new Php versions for shivammathur/setup-php,
+    # change this to (see https://github.com/shivammathur/setup-php#bookmark-versioning):
+    # uses: shivammathur/setup-php@v2
+    - uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
       with:
-        php-version: 8.1
-    - name: Check out code
-      uses: actions/checkout@v2
-    - name: Install dependencies
+        php-version: '8.0'
+    - uses: actions/checkout@v3
+    - name: Copy .env.test.local
+      run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Create Database
       run: |
-        apt-get update -yqq
-        apt-get install -yqq git libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev nodejs npm
-        docker-php-ext-install mysqli pdo pdo_mysql mbstring pdo_pgsql curl intl gd xml zip bz2 opcache
-        php bin/console doctrine:database:drop --force --env=test
-        php bin/console doctrine:database:create --env=test
-        php bin/console doctrine:migration:migrate --env=test
-        php bin/console doctrine:fixtures:load --no-interaction
-        curl -sS https://getcomposer.org/installer | php
-        php composer.phar install
-        npm install
-        npm run build
-    - name: Run PHPUnit
-      run: |
-        php bin/phpunit
+        mkdir -p data
+        touch data/database.sqlite
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DATABASE_URL: 'mysql://myapptest:myapptest@localhost:3306/myapptest'
+        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+      run: vendor/bin/phpunit
