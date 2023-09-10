@@ -30,5 +30,4 @@ class BlogPostCrudController extends AbstractCrudController
     {
         return $crud->setDefaultSort(['createdAt' => 'DESC']);
     }
-
 }
