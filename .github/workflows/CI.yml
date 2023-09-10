@@ -42,11 +42,6 @@ jobs:
         mkdir -p data
         touch data/database.sqlite
         name: Get APP_SECRET, DB_USER, DB_PASSWORD and DB_NAME from secrets repository
-        run: |
-          echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> $GITHUB_ENV
-          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> $GITHUB_ENV
         env:
           APP_SECRET: ${{ secrets.APP_SECRET }}
           DB_USER: ${{ secrets.DB_USER }}
@@ -55,5 +50,5 @@ jobs:
         if: github.event_name == 'push' || github.event_name == 'pull_request'
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DATABASE_URL: "mysql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@localhost/${{ secrets.DB_NAME }}"
+        DATABASE_URL: "mysql://'$env:secrets.DB_USER':'$env:$secrets.DB_PASSWORD'@localhost/'$env:secrets.DB_NAME'"
       run: vendor/bin/phpunit
