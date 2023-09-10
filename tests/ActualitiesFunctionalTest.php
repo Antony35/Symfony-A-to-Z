@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ActualitiesFunctionalTest extends WebTestCase
 {
-    public function testSomething(): void
+    public function testDisplayActualityPage(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/actualities');
