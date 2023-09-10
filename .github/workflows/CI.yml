@@ -42,15 +42,8 @@ jobs:
         mkdir -p data
         touch data/database.sqlite
         name: Get APP_SECRET, DB_USER, DB_PASSWORD and DB_NAME from secrets repository
+        run: |
         env:
           APP_SECRET: ${{ secrets.APP_SECRET }}
-          DB_DATABASE: test_db
-          DB_USER: root
-          DB_PASSWORD: root
-          steps:
-            - name: Set up MySQL
-              run: |
-                sudo /etc/init.d/mysql start
-                mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
