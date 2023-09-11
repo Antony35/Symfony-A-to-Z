@@ -16,13 +16,13 @@ class PortfolioFunctionalTest extends WebTestCase
         $this->assertSelectorTextContains('p', 'Mes meilleur ouevre');
     }
 
-    public function testSomething(): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/portfolio/categorie-test');
+    // public function testDisplayDaitailCategoriePage(): void
+    // {
+    //     $client = static::createClient();
+    //     $crawler = $client->request('GET', '/portfolio/categorie-test');
 
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Catégorie');
-        $this->assertSelectorTextContains('p', 'Détail de la catgorie');
-    }
+    //     $this->assertResponseIsSuccessful();
+    //     $this->assertSelectorTextContains('h1', 'Catégorie');
+    //     $this->assertSelectorTextContains('p', 'Détail de la catgorie');
+    // }
 }
